@@ -59,7 +59,7 @@ class LUFactorization:
         return LU
 
     """
-    This method solve Lc = b for c of the lower triangular matrix and then use the 
+    This method solves Lc = b for c of the lower triangular matrix and then use the 
     result to solve Ux = c for x  and then return the solution
     """
 
@@ -101,12 +101,30 @@ total time complexity is O(n^3).
 """
 
 # ------------------------ Testing the algorithm with some input-------------
-A = [[1, 2, -1],
-     [2, 1, -2],
-     [-3, 1, 1]]
+n = int(input("\nPlease input the n value of the nxn matrix A:  "))
 
-b = [3, 3, -6]  # b represents the right hand side matrix
+A = []
 
+print("\nPlease input matrix A:\n")
+
+for row in range(0, n):
+    A.append([])
+    for col in range(0, n):
+        A[row].append(int(input("a" + str(row + 1) + str(col + 1) + ":  ")))
+
+b = []
+
+print("\nPlease input vector b:\n")
+for row in range(0, n):
+    b.append(int(input("b" + str(row + 1) + ":  ")))
+
+# :::test cases:::
+
+#A = [[1, 2, -1],
+#     [2, 1, -2],
+#     [-3, 1, 1]]
+#
+#b = [3, 3, -6]  # b represents the right hand side matrix
 
 # A = [[1, 1],
 #      [3, -4]]
@@ -115,10 +133,13 @@ b = [3, 3, -6]  # b represents the right hand side matrix
 
 # Create a new LUFactorization object passing as a parameter the matrix A
 # To decompose it in Lower(L) and upper(U) Triangular matrix
-l = LUFactorization(A)
+lufactored = LUFactorization(A)
 
-# Computing the product of LU to check if LU = A the original matrix
-print(l.multiply_LU())
+print("\nL:\n" + str(lufactored.L))
+print("\nU:\n" + str(lufactored.U))
 
-# Solving the system and return the result.
-print(l.solve_system(b))
+# Compute the product of LU to check if LU = A the original matrix
+print("\nMultiplying L and U.\nShould equal A:\n" + str(lufactored.multiply_LU()))
+
+# Solve the system and print the result.
+print("\nSolution for x:\n" + str(lufactored.solve_system(b)))
